@@ -251,14 +251,16 @@ for (let i = 0; i < N; i++) {
     resta = Math.max(0, Math.ceil((fins - Date.now()) / 1000));
     pinta();
     avisSeg.forEach(function(seg,j){
-      if (!avisFet[j] && seg>0 && total>seg && total-resta>=seg && resta>0) {
-        avisFet[j]=true;
-        if (j === 0) {
-  piuIntermedi(6);
-} else {
-  piuIntermedi(3);
-}
-        
+  if (!avisFet[j] && seg>0 && total>seg && total-resta>=seg && resta>0) {
+    avisFet[j]=true;
+
+    if (j === 0) {
+      piuIntermedi(6);
+    } else {
+      piuIntermedi(3);
+    }
+  }
+});
         
         
       }
