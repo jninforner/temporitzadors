@@ -1,4 +1,4 @@
-const CACHE = "temporitzadors-v1";
+const CACHE = "temporitzadors-v2";
 
 self.addEventListener("install", e => {
   e.waitUntil(
