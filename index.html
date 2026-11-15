@@ -65,15 +65,25 @@ const N = 6;
 /* El pas de + i − creix mentre es manté premut */
 let so = null;
 function llegirAudio() { try { so = so || new (window.AudioContext || window.webkitAudioContext)(); so.resume(); } catch (e) {} }
-function piuIntermedi() {
+function piuIntermedi(repeticions) {
   try {
     if (!so) return;
-    [0, 0.22].forEach(function (offset) {
-      const o = so.createOscillator(), g = so.createGain();
-      o.connect(g); g.connect(so.destination);
-      o.frequency.value = 660; g.gain.value = 0.22;
-      o.start(so.currentTime + offset); o.stop(so.currentTime + offset + 0.15);
-    });
+
+    for (let i = 0; i < repeticions; i++) {
+      const offset = i * 0.25;
+
+      const o = so.createOscillator();
+      const g = so.createGain();
+
+      o.connect(g);
+      g.connect(so.destination);
+
+      o.frequency.value = 660;
+      g.gain.value = 0.22;
+
+      o.start(so.currentTime + offset);
+      o.stop(so.currentTime + offset + 0.15);
+    }
   } catch (e) {}
 }
 function piu() {
@@ -242,7 +252,15 @@ for (let i = 0; i < N; i++) {
     pinta();
     avisSeg.forEach(function(seg,j){
       if (!avisFet[j] && seg>0 && total>seg && total-resta>=seg && resta>0) {
-        avisFet[j]=true; piuIntermedi();
+        avisFet[j]=true;
+        if (j === 0) {
+  piuIntermedi(6);
+} else {
+  piuIntermedi(3);
+}
+        
+        
+        
       }
     });
     if (resta === 0) { atura(); d.classList.add('fi'); go.textContent = 'Atura'; piu(); clearInterval(al); al = setInterval(piu, 700); }
